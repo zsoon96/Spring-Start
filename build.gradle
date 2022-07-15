@@ -12,8 +12,13 @@ repositories {
     mavenCentral()
 }
 
+// gradle 프로그램 구현에 필요로하는 라이브러리들의 의존관계(해당 라이브러리를 사용하기 위한 라이브러리들)를 관리해준다.
 dependencies {
+    // view 작업을 위한 thymeleaf 템플릿 엔진 사용
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    // spring-boot-starter(공통)에는 spring-boot(+spring-core)와 spring-boot-starter-logging(+slf4j & logback = 표준)이 들어있음
+        // 현업에서는 System.out.println으로 출력하지 않고 log를 사용 -> 심각한 에러들을 별도로 관리할 수 있기 때문
+    // spring-boot-starter-web에는 spring-boot-starter-tomcat과 spring-webmvc가 들어있음
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
