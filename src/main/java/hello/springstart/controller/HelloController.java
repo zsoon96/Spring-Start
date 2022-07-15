@@ -11,7 +11,7 @@ public class HelloController {
     // 실행 시 가장 먼저
     @GetMapping("hello")
     public String hello(Model model){
-        model.addAttribute("data", "spring!!");
+        model.addAttribute("data", "soon!!");
         // view resolver가 해당 이름으로 된 html 파일을 찾아서 값 전달 ( == hello.html )
         return "hello";
     }

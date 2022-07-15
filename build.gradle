@@ -21,6 +21,8 @@ dependencies {
     // spring-boot-starter-web에는 spring-boot-starter-tomcat과 spring-webmvc가 들어있음
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // 코드 수정 시 어플리케이션을 재실행해야하는 불편함을 개선한 모듈
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
 }
 
 tasks.named('test') {
