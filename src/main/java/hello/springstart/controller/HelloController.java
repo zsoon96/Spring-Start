@@ -13,7 +13,7 @@ public class HelloController {
     // 실행 시 가장 먼저
     @GetMapping("hello")
     public String hello(Model model){
-        model.addAttribute("data", "soon!!");
+        model.addAttribute("data", "적용 성공!!");
         // view resolver가 해당 이름으로 된 html 파일을 찾아서 값 전달 ( == index.html )
         return "hello";
     }
