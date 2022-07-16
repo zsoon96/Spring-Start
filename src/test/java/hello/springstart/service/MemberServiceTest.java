@@ -1,7 +1,9 @@
 package hello.springstart.service;
 
 import hello.springstart.domain.Member;
+import hello.springstart.repository.MemoryMemberRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
@@ -10,13 +12,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberServiceTest {
 
     MemberService memberService = new MemberService();
+    MemoryMemberRepository repository = new MemoryMemberRepository();
+
+    @AfterEach
+    public void afterEach() {
+        repository.clearStore();
+    }
 
     // 회원가입 정상 플로우
     @Test
     void 회원가입() {
         // given (입력)
         Member member = new Member();
-        member.setName("soon");
+        member.setName("soon1");
 
         // when (실행)
         Long saveId = memberService.join(member);
