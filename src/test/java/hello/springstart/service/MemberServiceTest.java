@@ -8,6 +8,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,7 +27,7 @@ class MemberServiceTest {
 
     @AfterEach
     public void afterEach() {
-        repository.clearStore();
+        memberRepository.clearStore();
     }
 
     // 회원가입 정상 플로우
@@ -76,18 +78,36 @@ class MemberServiceTest {
     @Test
     void 모든정보조회() {
         // given
+        Member member1 = new Member();
+        member1.setName("soon1");
+        memberRepository.save(member1);
+
+        Member member2 = new Member();
+        member2.setName("soon2");
+        memberRepository.save(member2);
 
         // when
+        List<Member> result = memberService.findAll();
 
         // then
+        assertThat(result.size()).isEqualTo(2);
     }
 
     @Test
     void 단일정보조회() {
         // given
+        Member member1 = new Member();
+        member1.setName("soon1");
+        memberRepository.save(member1);
+
+        Member member2 = new Member();
+        member2.setName("soon2");
+        memberRepository.save(member2);
 
         // when
+        Member result = memberService.findOne(member1.getId()).get();
 
         // then
+        assertThat(member1).isEqualTo(result);
     }
 }
