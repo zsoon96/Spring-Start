@@ -38,12 +38,21 @@ class MemberServiceTest {
 
         // when
         memberService.join(member1);
-        try {
-            memberService.join(member2); // 예외 발생
-            fail();
-        } catch (IllegalStateException e) {
-            assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
-        }
+        // memberService.join(member2)를 실행했을 때, 예외가 발생하는지 검증
+        // assertThrows 자체가 메세지를 반환
+        assertThrows(IllegalStateException.class, () -> memberService.join(member2)); // 예외 발생
+
+        // 위에 구문을 풀어서 작성
+//        IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));
+//        assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
+
+
+//        try {
+//            memberService.join(member2); // 예외 발생
+//            fail();
+//        } catch (IllegalStateException e) {
+//            assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
+//        }
 
     }
 
