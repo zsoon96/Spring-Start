@@ -14,21 +14,19 @@ public class MemberService {
     // 회원가입
     public Long join(Member member) {
         // 같은 이름 중복 검증
-        Optional<Member> result = memberRepository.findByName(member.getName());
-
-        // 기존에 알고 있는 방식으로 검증 구현
-        // if ( result.isPresent() ) {
-        //     throw new IllegalStateException("이미 존재하는 회원입니다.");
-        // }
-
-        // 강의에서 사용하는 방식으로 검증 구현
-        result.ifPresent(m -> {
-            throw new IllegalStateException("이미 존재하는 회원입니다,");
-        });
-
+        validateName(member);
         // 검증 후 저장
         memberRepository.save(member);
         return member.getId();
+    }
+
+    // 로직이 나오는 경우에는 메서드로 추출해서 리팩터링 해주면 좋음
+    private void validateName(Member member) {
+        // Optional 타입으로 바로 반환하는 케이스 지양
+        memberRepository.findByName(member.getName()) // 해당 구문 자체가 Optional 값이기 때문에 앞에 반환 타입(Optional) 생략 가능
+                .ifPresent(m -> {
+                    throw new IllegalStateException("이미 존재하는 회원입니다.");
+                });
     }
 
     // 회원 정보 모두 조회
