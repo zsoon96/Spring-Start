@@ -43,4 +43,9 @@ public class MemoryMemberRepository implements MemberRepository {
         // map 자료구조로 저장되어 있는 데이터를 value 값(member 객체)만 새로운 리스트에 담아서 반환
         return new ArrayList<>(store.values());
     }
+
+    // repository 데이터 비워주기
+    public void clearStore() {
+        store.clear();
+    }
 }
