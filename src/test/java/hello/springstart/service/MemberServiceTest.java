@@ -1,9 +1,11 @@
 package hello.springstart.service;
 
 import hello.springstart.domain.Member;
+import hello.springstart.repository.MemberRepository;
 import hello.springstart.repository.MemoryMemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
@@ -11,8 +13,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MemberServiceTest {
 
-    MemberService memberService = new MemberService();
-    MemoryMemberRepository repository = new MemoryMemberRepository();
+    MemberService memberService;
+    MemoryMemberRepository memberRepository;
+
+    // memeberService를 생성할 때, memberService안에 memberRepository를 직접 넣어줘야 함 (memberService에서 memberRepository를 DI 해줬기 때문!!!)
+    @BeforeEach
+    public void beforeEach() {
+        memberRepository = new MemoryMemberRepository();
+        memberService = new MemberService(memberRepository);
+    }
 
     @AfterEach
     public void afterEach() {
