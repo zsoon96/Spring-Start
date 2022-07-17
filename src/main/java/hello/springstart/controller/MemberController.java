@@ -1,8 +1,12 @@
 package hello.springstart.controller;
 
+import hello.springstart.domain.Member;
+import hello.springstart.domain.MemberReqDto;
 import hello.springstart.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 // Bean 등록 방법 1 - 컴포넌트 스캔 방식으로 등록 =  @Service / @Repository / @Controller / @Component..
 // 스프링에서 Bean을 등록할 때, 싱글톤으로 등록해서 동일한 인스턴스로 공유함 !
@@ -29,4 +33,21 @@ public class MemberController {
     // public void setMemberService(MemberService memberService) {
     //     this.memberService = memberService;
     // }
+
+    @GetMapping("/members/new")
+    public String createForm () {
+        return "members/createMemberForm";
+    }
+
+    @PostMapping("/members/new")
+    public String create(MemberReqDto reqDto) {
+        Member member = new Member();
+        member.setName(reqDto.getName());
+
+        System.out.println("member== " + member.getName());
+
+        memberService.join(member);
+
+        return "redirect:/";
+    }
 }
