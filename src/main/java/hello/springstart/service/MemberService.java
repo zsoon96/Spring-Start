@@ -9,14 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
     // service 단과 test 단에서의 동일한 repository를 사용해야하기 때문에
-    // 생성자로 호출하여 외부에서 만든 repository를 주입해서 사용 가능하게 함 == 이게 바로 DI의 생성자 주입 방법!!!!
-    @Autowired
+    // 생성자로 호출하여 외부에서 만든 repository를 주입해서 사용 가능하게 함 == 이게 바로 DI의 생성자 주입 방법!!!
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
