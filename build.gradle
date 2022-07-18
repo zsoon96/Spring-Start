@@ -23,6 +23,9 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     // 코드 수정 시 어플리케이션을 재실행해야하는 불편함을 개선한 모듈
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    // H2 DB와 DB와의 연결을 위한 JDBC 설치
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    runtimeOnly 'com.h2database:h2'
 }
 
 tasks.named('test') {
