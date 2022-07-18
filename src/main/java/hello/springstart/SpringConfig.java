@@ -28,6 +28,7 @@ public class SpringConfig {
         return new MemberService(memberRepository());
     }
 
+    // SOLID 설계원칙 중, OCP 개방 폐쇄 원칙에 해당 : 기존 코드를 전혀 손대지 않고, 설정만으로 구현 클래스 변
     @Bean
     public MemberRepository memberRepository() {
 //        return new MemoryMemberRepository();
