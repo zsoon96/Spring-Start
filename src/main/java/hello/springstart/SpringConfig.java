@@ -24,27 +24,39 @@ public class SpringConfig {
 //        this.dataSource = dataSource;
 //    }
 
-    @PersistenceContext
-    private EntityManager em;
+    // JPA
+//    @PersistenceContext
+//    private EntityManager em;
+//
+//    @Autowired
+//    public SpringConfig(EntityManager em) {
+//        this.em = em;
+//    }
+
+    // Spring Data JPA
+    // 스프링 컨테이너에서 MemberRepository를 찾게 되면,
+    // Spring Data JPA가 JpaRepository를 상속받고 있는 SpringDataJpaMemberRepository를 보고 해당 레포지토리에서 구현체를 자동으로 생성하고 빈으로도 만들어줌
+    // 그래서 의존성 주입이 가능한 것 !
+    private final MemberRepository memberRepository;
 
     @Autowired
-    public SpringConfig(EntityManager em) {
-        this.em = em;
+    public SpringConfig(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
     @Bean
     public MemberService memberService() {
-        return new MemberService(memberRepository());
+        return new MemberService(memberRepository);
     }
 
     // SOLID 설계원칙 중, OCP 개방 폐쇄 원칙에 해당 : 기존 코드를 전혀 손대지 않고, 설정만으로 구현 클래스 변
-    @Bean
-    public MemberRepository memberRepository() {
-//        return new MemoryMemberRepository();
-//        return new JdbcMemberRepository(dataSource);
-//        return new JdbcTemplateMemberRepository(dataSource);
-        return new JpaMemberRepository(em);
-    }
+//    @Bean
+//    public MemberRepository memberRepository() {
+////        return new MemoryMemberRepository();
+////        return new JdbcMemberRepository(dataSource);
+////        return new JdbcTemplateMemberRepository(dataSource);
+//        return new JpaMemberRepository(em);
+//    }
 
     // Bean 등록 2가지 방법에 대한 쓰임 정리 !!!
     // 실무에서는 주로 정형화 된 Controller / Service / Repository와 같은 코드는 '컴포넌트 스캔 방식' 사용
