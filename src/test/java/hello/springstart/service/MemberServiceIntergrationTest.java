@@ -1,5 +1,7 @@
 package hello.springstart.service;
 
+// 아래와 같은 통합 테스트보다는 이전 방식의 '단위 테스트'를 잘 만드는게 더욱 좋은 테스트라고 한다!
+
 import hello.springstart.domain.Member;
 import hello.springstart.repository.MemberRepository;
 import hello.springstart.repository.MemoryMemberRepository;
@@ -83,6 +85,7 @@ class MemberServiceIntergrationTest {
     }
 
     // 테스트 통과 안되는 이유?
+    // 결과에서는 메모리 상의 위치 값이 다르게 나옴.... > 단위 테스트에서는 되는데...
     @Test
     void 단일정보조회() {
         // given
