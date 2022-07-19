@@ -5,10 +5,16 @@ import hello.springstart.repository.MemberRepository;
 import hello.springstart.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 import java.util.Optional;
 
+// JPA를 사용하기 위해선 항상 Transactional 기능을 함께 사용해줘야한다.
+// JPA를 통한 모든 데이터 변경은 트랜잭션 안에서 실행해야한다 !!!
+// 스프링은 해당 클래스의 메서드를 실행할 때, 트랜잭션을 시작하고 > 메서드가 정상 종료되면 트랜잭션을 커밋하게되는데, 만약 런타임 예외가 발생하면 롤백함!
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;

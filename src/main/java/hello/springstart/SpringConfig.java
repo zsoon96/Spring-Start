@@ -1,14 +1,14 @@
 package hello.springstart;
 
 
-import hello.springstart.repository.JdbcMemberRepository;
-import hello.springstart.repository.JdbcTemplateMemberRepository;
-import hello.springstart.repository.MemberRepository;
-import hello.springstart.repository.MemoryMemberRepository;
+import hello.springstart.repository.*;
 import hello.springstart.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
 // Bean 등록 방법 2 - 자바 코드로 직접 스프링 빈 등록하는 방식
@@ -18,10 +18,18 @@ import javax.sql.DataSource;
 public class SpringConfig {
 
     // DB 연결을 획득할 때 사용하는 객체 > 연결 정보를 바탕으로 해당 객체 생성 후 스프링 빈으로 만들어 둠
-    private final DataSource dataSource;
-    // DI
-    public SpringConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+//    private final DataSource dataSource;
+//    // DI
+//    public SpringConfig(DataSource dataSource) {
+//        this.dataSource = dataSource;
+//    }
+
+    @PersistenceContext
+    private EntityManager em;
+
+    @Autowired
+    public SpringConfig(EntityManager em) {
+        this.em = em;
     }
 
     @Bean
@@ -34,7 +42,8 @@ public class SpringConfig {
     public MemberRepository memberRepository() {
 //        return new MemoryMemberRepository();
 //        return new JdbcMemberRepository(dataSource);
-        return new JdbcTemplateMemberRepository(dataSource);
+//        return new JdbcTemplateMemberRepository(dataSource);
+        return new JpaMemberRepository(em);
     }
 
     // Bean 등록 2가지 방법에 대한 쓰임 정리 !!!
