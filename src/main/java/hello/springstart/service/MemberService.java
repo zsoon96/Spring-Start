@@ -28,25 +28,11 @@ public class MemberService {
     // 회원가입
     public Long join(Member member) {
 
-        // 시간 측정 = 공통 관심 사항
-        long start = System.currentTimeMillis();
-
-        // 핵심 로직 = 핵심 관심 사항
-        try {
-            // 같은 이름 중복 검증
-            validateName(member);
-            // 검증 후 저장
-            memberRepository.save(member);
-            return member.getId();
-        } finally {
-            long finish = System.currentTimeMillis();
-            long timeMs = finish - start;
-            System.out.println("join " + timeMs + "ms");
-        }
-        // 공통 핵심 사항과 관심 사항의 로직이 섞여 있을 경우, 유지보수가 어렵다.
-        // 시간을 측정하는 로직을 별도의 공통 로직으로 만들기 매우 어렵다.( 핵심 로직이 포함되어 있기 때문 )
-        // 그러므로 이렇게 함께 사용했을 경우, 시간을 측정하는 로직을 변경할 때엔 모든 로직을 찾아가면서 변경해야한다....
-
+        // 같은 이름 중복 검증
+        validateName(member);
+        // 검증 후 저장
+        memberRepository.save(member);
+        return member.getId();
     }
 
     // 로직이 나오는 경우에는 메서드로 추출해서 리팩터링 해주면 좋음
@@ -60,18 +46,7 @@ public class MemberService {
 
     // 회원 정보 모두 조회
     public List<Member> findAll() {
-
-        // 시간 측정
-        long start = System.currentTimeMillis();
-
-        try {
-            return memberRepository.findAll();
-        } finally {
-            long finish = System.currentTimeMillis();
-            long timeMs = finish - start;
-            System.out.println("findMembers " + timeMs + "ms");
-        }
-
+        return memberRepository.findAll();
     }
 
     // 회원 정보 단일 조회

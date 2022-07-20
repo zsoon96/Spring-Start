@@ -1,6 +1,7 @@
 package hello.springstart;
 
 
+import hello.springstart.aop.TimeTraceAop;
 import hello.springstart.repository.*;
 import hello.springstart.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,13 @@ public class SpringConfig {
     @Bean
     public MemberService memberService() {
         return new MemberService(memberRepository);
+    }
+
+
+    // AOP 적용 시, 빈 등록 필수
+    @Bean
+    public TimeTraceAop timeTraceAop() {
+        return new TimeTraceAop();
     }
 
     // SOLID 설계원칙 중, OCP 개방 폐쇄 원칙에 해당 : 기존 코드를 전혀 손대지 않고, 설정만으로 구현 클래스 변

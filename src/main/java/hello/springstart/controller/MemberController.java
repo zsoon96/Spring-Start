@@ -26,6 +26,8 @@ public class MemberController {
     @Autowired
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
+        // 프록시 확인용
+        // System.out.println("memberService = " + memberService.getClass());
     }
 
     // DI 주입 방법 2 - 필드 주입 : 외부에서 변경이 불가능하고, DI 프레임워크 없이는 작동하기 어렵기 때문에 해당 방법을 비권장
